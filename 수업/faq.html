@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Video Brain</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+    <!-- font awesome style -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+      input,
+      textarea,
+      button {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        color: #333;
+      }
+    </style>
+  </head>
+
+  <body class="sub_page">
+    <div class="hero_area">
+      <!-- header section strats -->
+      <header class="header_section">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container">
+            <img
+              src="images/hero-logo.png"
+              alt=""
+              style="width: 50px; height: 50px; margin-right: 10px"
+            />
+            <a class="navbar-brand" href="index.html">
+              <span> Video Brain </span>
+            </a>
+
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class=""> </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html"
+                    >Home <span class="sr-only">(current)</span></a
+                  >
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="FAQ.html"> FAQ</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html#focus-email"> CONTACT</a>
+                </li>
+
+                <!-- <li class="nav-item">
+                <a class="nav-link" href="service.html">Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact Us</a>
+              </li> -->
+              </ul>
+              <!-- <div class="quote_btn-container">
+              <a href="" class="quote_btn"> Get A Quote </a>
+            </div> -->
+            </div>
+          </nav>
+        </div>
+      </header>
+      <!-- end header section -->
+    </div>
+
+    <!-- contact section -->
+
+    <section class="contact_section layout_padding">
+      <div class="container">
+        <div class="heading_container">
+          <h2 class="text-center mb-4">FAQ</h2>
+        </div>
+
+        <div class="row">
+          <!-- 왼쪽 문단 -->
+          <div class="col-md-6">
+            <div class="faq-item mb-5">
+              <h5 class="faq-question">Q. 이 서비스는 어떤 기능을 하나요?</h5>
+              <p class="faq-answer">
+                A. 여러 영상 플랫폼에서 저장한 영상을 기록하고, 텍스트 기반으로
+                쉽게 다시 찾을 수 있게 도와주는 서비스입니다.
+              </p>
+            </div>
+
+            <div class="faq-item mb-5">
+              <h5 class="faq-question">Q. 영상은 어떻게 등록하나요?</h5>
+              <p class="faq-answer">
+                A. 보고 있는 영상의 링크를 복사해 서비스 내에 붙여넣기만 하면
+                됩니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- 오른쪽 문단 -->
+          <div class="col-md-6">
+            <div class="faq-item mb-5">
+              <h5 class="faq-question">Q. 어떤 플랫폼들을 지원하나요?</h5>
+              <p class="faq-answer">
+                A. 현재는 YouTube, TikTok, Shorts를 지원하며, 향후 Instagram
+                Reels도 추가 예정입니다.
+              </p>
+            </div>
+
+            <div class="faq-item mb-5">
+              <h5 class="faq-question">
+                Q. 저장된 영상은 어떤 방식으로 검색되나요?
+              </h5>
+              <p class="faq-answer">
+                A. 영상의 스크립트, 썸네일, 제목, 사용자 메모, 그리고 AI가
+                생성한 맥락 데이터를 바탕으로 검색할 수 있습니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <style>
+      .faq-question {
+        color: #5a3ec8;
+        margin-bottom: 0.7rem;
+        font-weight: bold;
+      }
+
+      .faq-answer {
+        color: #555;
+        line-height: 1.6;
+      }
+
+      .faq-item {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eee;
+      }
+    </style>
+
+    <!-- end contact section -->
+
+    <div class="footer_container">
+      <!-- info section -->
+
+      <section class="info_section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-lg-3">
+              <div class="info_detail">
+                <h4>Video Brain</h4>
+                <p>
+                  기억은 Video Brain에게 맡기고
+                  <br />
+                  편하게 잊어버리세요.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-2 mx-auto">
+              <div class="info_link_box">
+                <h4>Links</h4>
+                <div class="info_links">
+                  <a class="" href="index.html"> Home </a>
+                  <a class="" href="FAQ.html"> FAQ </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+              <form>
+                <div class="contact-title-wrapper">
+                  <!-- <h4>Contact Us</h4> -->
+                  <h4 class="contact-title">Contact Us</h4>
+                  <input
+                    id="submit-email-footer"
+                    type="email"
+                    placeholder="이메일 주소 입력"
+                    class="contact-email"
+                  />
+                </div>
+
+                <textarea
+                  id="submit-advice-footer"
+                  rows="3"
+                  placeholder="서비스에 대한 조언을 남겨주세요 :)"
+                  class="contact-textarea"
+                ></textarea>
+
+                <button type="button" id="submit-footer" class="contact-button">
+                  🚀 지금 등록하기
+                </button>
+
+                <style>
+                  .contact-title-wrapper {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 1rem;
+                    margin-bottom: 1rem;
+                    flex-wrap: wrap;
+                  }
+
+                  .contact-title {
+                    margin: 0;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    white-space: nowrap;
+                  }
+
+                  .contact-email {
+                    flex: 1;
+                    min-width: 0;
+                    padding: 0.5rem 0.5rem;
+                    border-radius: 8px;
+                    border: 1px solid #ccc;
+                    font-size: 0.8rem;
+                  }
+
+                  .contact-textarea {
+                    width: 100%;
+                    padding: 0.75rem;
+                    margin-bottom: 1.5rem;
+                    border-radius: 8px;
+                    border: 1px solid #ccc;
+                    font-size: 1rem;
+                    resize: vertical;
+                  }
+
+                  @media (max-width: 768px) {
+                    .contact-title-wrapper {
+                      flex-direction: column;
+                      align-items: stretch;
+                    }
+
+                    .contact-title {
+                      margin-bottom: 0.5rem;
+                    }
+
+                    .contact-email {
+                      width: 100%;
+                    }
+                  }
+                </style>
+              </form>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-0 ml-auto"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- end info section -->
+
+      <!-- footer section -->
+      <footer class="footer_section">
+        <div class="container">
+          <p>
+            <!-- &copy; <span id="displayYear"></span> All Rights Reserved By
+            <a href="https://html.design/">Free Html Templates</a> -->
+          </p>
+        </div>
+      </footer>
+      <!-- footer section -->
+    </div>
+    <div id="popup-overlay"></div>
+    <div id="popup">
+      <h1>함께해 주셔서 고맙습니다! 🙌</h1>
+      <p>
+        Video Brain의 여정에 함께해 주셔서 감사합니다.<br />
+        앞으로 좋은 소식, 가장 먼저 전해드릴게요 💌
+      </p>
+    </div>
+    <style>
+      #popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        background: white;
+        border-radius: 16px;
+        padding: 2rem 2.5rem;
+        /* box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); */
+        max-width: 90%;
+        width: 450px;
+        text-align: center;
+        font-family: "Noto Sans KR", sans-serif;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      #popup.show {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      #popup h1 {
+        font-size: 1.8rem;
+        color: #7f5af0;
+        margin-bottom: 1rem;
+      }
+
+      #popup p {
+        font-size: 1.1rem;
+        color: #444;
+        line-height: 1.5;
+      }
+
+      /* 배경 오버레이 */
+      #popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 9998;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+      }
+
+      #popup-overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+    </style>
+
+    <!-- jQery -->
+    <!-- <script src="js/jquery-3.4.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/gh/dinoqqq/simple-popup@master/dist/jquery.simple-popup.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/gh/dinoqqq/simple-popup@master/dist/jquery.simple-popup.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script>
+      function getCookieValue(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length === 2) {
+          return parts.pop().split(";").shift();
+        }
+      }
+
+      // 쿠키에 값을 저장하는 함수
+      function setCookieValue(name, value, days) {
+        let expires = "";
+        if (days) {
+          const date = new Date();
+          date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+          expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+      }
+
+      function getUVfromCookie() {
+        // 6자리 임의의 문자열 생성
+        const hash = Math.random().toString(36).substring(2, 8).toUpperCase();
+        // 쿠키에서 기존 해시 값을 가져옴
+        const existingHash = getCookieValue("user");
+        // 기존 해시 값이 없으면, 새로운 해시 값을 쿠키에 저장
+        if (!existingHash) {
+          setCookieValue("user", hash, 180); // 쿠키 만료일은 6개월
+          return hash;
+        } else {
+          // 기존 해시 값이 있으면, 기존 값을 반환
+          return existingHash;
+        }
+      }
+
+      /* 수정 payload data -> id:getUVfromCookie() */
+    </script>
+    <script type="application/javascript">
+      var ip = "null";
+      function getIP(json) {
+        console.log(json);
+        try {
+          ip = json.ip;
+        } catch (e) {
+          ip = "unknown";
+        }
+        return;
+      }
+    </script>
+    <script
+      type="application/javascript"
+      src="https://jsonip.com?format=jsonp&callback=getIP"
+    ></script>
+    <script>
+      // Sam pading value to start with 0. eg: 01, 02, .. 09, 10, ..
+      function padValue(value) {
+        return value < 10 ? "0" + value : value;
+      }
+
+      function getTimeStamp() {
+        const date = new Date();
+
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+
+        const formattedDate = `${padValue(year)}-${padValue(month)}-${padValue(
+          day
+        )} ${padValue(hours)}:${padValue(minutes)}:${padValue(seconds)}`;
+
+        return formattedDate;
+      }
+      var queryString = location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const utm = urlParams.get("utm");
+      var mobile = "desktop";
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        // true for mobile device
+        mobile = "mobile";
+      }
+    </script>
+    <script>
+      function showPopup() {
+        const popup = document.getElementById("popup");
+        const overlay = document.getElementById("popup-overlay");
+
+        popup.classList.add("show");
+        overlay.classList.add("show");
+
+        // 2초 후 자동으로 사라지게
+        setTimeout(() => {
+          popup.classList.remove("show");
+          overlay.classList.remove("show");
+        }, 2000);
+      }
+
+      // 바깥 영역(오버레이) 클릭 시 닫기
+      document.getElementById("popup-overlay").addEventListener("click", () => {
+        document.getElementById("popup").classList.remove("show");
+        document.getElementById("popup-overlay").classList.remove("show");
+      });
+    </script>
+    <script>
+      /* data를 만들 땐 모든 field가 들어 있어야 함 */
+      var data = JSON.stringify({
+        id: getUVfromCookie(),
+        landingUrl: window.location.href,
+        ip: ip,
+        referer: document.referrer,
+        time_stamp: getTimeStamp(),
+        utm: utm,
+        device: mobile,
+      });
+
+      $(document).ready(function () {
+        addrScript =
+          "https://script.google.com/macros/s/AKfycbyLkowyKI9nkJK_cvtUdbiUJSRsols6mz_PSMGgujH-pWTzfDnNtrFfksZF6ZZvfeXANw/exec";
+
+        // $.ajax({
+        //   url: addrScript + "?action=insert&table=visitor&data=" + data,
+        //   dataType: "jsonp",
+        //   success: function (data) {
+        //     console.log("성공 - ", JSON.stringify(data));
+        //   },
+        //   error: function (xhr) {
+        //     console.log("실패 - ", JSON.stringify(xhr));
+        //   },
+        // });
+        axios
+          .get(addrScript + "?action=insert&table=visitor&data=" + data)
+          .then((response) => {
+            console.log(JSON.stringify(response));
+          })
+          .catch((error) => {
+            if (error.response) {
+              // 서버가 2xx 범위를 벗어난 상태 코드로 응답한 경우
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else if (error.request) {
+              // 요청이 전송되었지만 응답을 받지 못한 경우
+              console.log(error.request);
+            } else {
+              // 요청 설정 중에 오류가 발생한 경우
+              console.log("Error", error.message);
+            }
+            console.log(error.config);
+          });
+
+        $("#submit").on("click", function () {
+          const email = $("#submit-email").val();
+          const advice = $("#submit-advice").val();
+
+          $.busyLoadFull("show");
+          function validateEmail(email) {
+            var re =
+              /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            return re.test(email);
+          }
+
+          if (email == "" || !validateEmail(email)) {
+            alert("이메일이 유효하지 않아 알림을 드릴 수가 없습니다. ");
+            $.busyLoadFull("hide");
+            return;
+          }
+
+          var finalData = JSON.stringify({
+            id: getUVfromCookie(),
+            email: email,
+            advice: advice,
+          });
+
+          axios
+            .get(
+              addrScript + "?action=insert&table=tab_final&data=" + finalData
+            )
+            .then((response) => {
+              console.log(response.data.data);
+              // alert(JSON.stringify(response));
+              $.busyLoadFull("hide");
+              // $.fn.simplePopup({ type: "html", htmlSelector: "#popup" });
+              showPopup();
+
+              $("#submit-email").val("");
+              $("#submit-advice").val("");
+            });
+        });
+      });
+    </script>
+    <script>
+      /* data를 만들 땐 모든 field가 들어 있어야 함 */
+      var data = JSON.stringify({
+        id: getUVfromCookie(),
+        landingUrl: window.location.href,
+        ip: ip,
+        referer: document.referrer,
+        time_stamp: getTimeStamp(),
+        utm: utm,
+        device: mobile,
+      });
+
+      $(document).ready(function () {
+        addrScript =
+          "https://script.google.com/macros/s/AKfycbyLkowyKI9nkJK_cvtUdbiUJSRsols6mz_PSMGgujH-pWTzfDnNtrFfksZF6ZZvfeXANw/exec";
+
+        // $.ajax({
+        //   url: addrScript + "?action=insert&table=visitor&data=" + data,
+        //   dataType: "jsonp",
+        //   success: function (data) {
+        //     console.log("성공 - ", JSON.stringify(data));
+        //   },
+        //   error: function (xhr) {
+        //     console.log("실패 - ", JSON.stringify(xhr));
+        //   },
+        // });
+        axios
+          .get(addrScript + "?action=insert&table=visitor&data=" + data)
+          .then((response) => {
+            console.log(JSON.stringify(response));
+          })
+          .catch((error) => {
+            if (error.response) {
+              // 서버가 2xx 범위를 벗어난 상태 코드로 응답한 경우
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else if (error.request) {
+              // 요청이 전송되었지만 응답을 받지 못한 경우
+              console.log(error.request);
+            } else {
+              // 요청 설정 중에 오류가 발생한 경우
+              console.log("Error", error.message);
+            }
+            console.log(error.config);
+          });
+
+        $("#submit-footer").on("click", function () {
+          const email = $("#submit-email-footer").val();
+          const advice = $("#submit-advice-footer").val();
+
+          $.busyLoadFull("show");
+          function validateEmail(email) {
+            var re =
+              /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            return re.test(email);
+          }
+
+          if (email == "" || !validateEmail(email)) {
+            alert("이메일이 유효하지 않아 알림을 드릴 수가 없습니다. ");
+            $.busyLoadFull("hide");
+            return;
+          }
+
+          var finalData = JSON.stringify({
+            id: getUVfromCookie(),
+            email: email,
+            advice: advice,
+          });
+
+          axios
+            .get(
+              addrScript + "?action=insert&table=tab_final&data=" + finalData
+            )
+            .then((response) => {
+              console.log(response.data.data);
+              // alert(JSON.stringify(response));
+              $.busyLoadFull("hide");
+              // $.fn.simplePopup({ type: "html", htmlSelector: "#popup" });
+              showPopup();
+
+              $("#submit-email-footer").val("");
+              $("#submit-advice-footer").val("");
+            });
+        });
+      });
+    </script>
+    <!-- popper js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.js"></script>
+    <script src="js/custom.js"></script>
+  </body>
+</html>
