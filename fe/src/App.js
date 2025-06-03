@@ -6,6 +6,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
+  const [urlInput, setUrlInput] = useState("");
+  const [videos, setVideos] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedSources, setSelectedSources] = useState([
+    "제목",
+    "작성자",
+    "스크립트",
+  ]);
+  const [error, setError] = useState("");
   // 미리 로드할 더미 URL 목록
   const dummyUrls = ["https://www.youtube.com/shorts/3igCTmZ9nrY"];
   // 컴포넌트 마운트 시 더미 데이터 자동 추가
@@ -32,17 +42,6 @@ function App() {
       }
     });
   }, []);
-
-  const [urlInput, setUrlInput] = useState("");
-  const [videos, setVideos] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedSources, setSelectedSources] = useState([
-    "제목",
-    "작성자",
-    "스크립트",
-  ]);
-  const [error, setError] = useState("");
 
   const extractVideoId = (url) => {
     try {
