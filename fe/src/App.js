@@ -40,9 +40,9 @@ function App() {
       } catch {
         // dummy load 실패 시 무시
       }
-    });
+    }); // eslint-disable-next-line
   }, []);
-
+  // eslint-disable-next-line
   const extractVideoId = (url) => {
     try {
       const u = new URL(url);
