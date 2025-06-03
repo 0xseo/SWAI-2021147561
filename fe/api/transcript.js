@@ -1,5 +1,5 @@
 // File: api/transcript.js
-import TranscriptAPI from "youtube-transcript-api";
+const TranscriptAPI = require("youtube-transcript-api");
 
 export async function handler(req, res) {
   if (req.method !== "POST") {

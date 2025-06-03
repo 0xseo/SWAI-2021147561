@@ -1,5 +1,5 @@
 // File: api/metadata.js
-import axios from "axios";
+const axios = require("axios");
 
 export async function handler(req, res) {
   // POST 요청 본문에 { url: '...' }이 담겨있다고 가정
