@@ -1,7 +1,7 @@
 // File: api/metadata.js
 import axios from "axios";
 
-export default async function handler(req, res) {
+export async function handler(req, res) {
   // POST 요청 본문에 { url: '...' }이 담겨있다고 가정
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
