@@ -2,7 +2,7 @@
   base = "fe"
   functions = "api"
   publish = "build"
-  command = "npm run build"
+  command = "CI = false npm run build"
 [[redirects]]
   from = "/*"
   to = "index.html"
