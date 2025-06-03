@@ -13,6 +13,8 @@ export default function VideoApp() {
     "스크립트",
   ]);
   const [error, setError] = useState("");
+  // **추가**: 영상 추가 중인지 나타내는 상태
+  const [isAdding, setIsAdding] = useState(false);
 
   // 미리 로드할 더미 URL
   const dummyUrls = ["https://www.youtube.com/shorts/3igCTmZ9nrY"];
@@ -67,6 +69,10 @@ export default function VideoApp() {
     if (!urlInput) return setError("URL을 입력해주세요.");
     if (videos.some((v) => v.url === urlInput))
       return setError("이미 등록된 영상입니다.");
+
+    // **추가**: 영상 추가 시작 시 isAdding=true
+    setIsAdding(true);
+
     try {
       const [metaRes, transRes] = await Promise.all([
         axios.post("/.netlify/functions/metadata", { url: urlInput }),
@@ -85,6 +91,9 @@ export default function VideoApp() {
       setUrlInput("");
     } catch {
       setError("비디오 로드 실패. URL을 확인해주세요.");
+    } finally {
+      // **추가**: 반드시 finally에서 isAdding=false로 되돌리기
+      setIsAdding(false);
     }
   };
 
@@ -148,12 +157,27 @@ export default function VideoApp() {
             onChange={(e) => setUrlInput(e.target.value)}
             placeholder="YouTube URL 입력"
             style={{ width: "100%", padding: "0.5rem" }}
+            disabled={isAdding} // 영상 추가 중에는 입력 비활성화
           />
           <button
             onClick={addVideo}
-            style={{ marginTop: "0.5rem", width: "100%", padding: "0.5rem" }}
+            style={{
+              marginTop: "0.5rem",
+              width: "100%",
+              padding: "0.5rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: isAdding ? "#ccc" : "#7f5af0",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: isAdding ? "default" : "pointer",
+            }}
+            disabled={isAdding} // 영상 추가 중에는 버튼 비활성화
           >
-            영상 추가
+            {isAdding && <span className="button-spinner"></span>}
+            {isAdding ? "로딩 중..." : "영상 추가"}
           </button>
           {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
