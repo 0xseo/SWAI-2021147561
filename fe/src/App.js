@@ -2,20 +2,20 @@
 File: fe/src/App.js
 React client: split-screen with categorized search filters and remote example data loading
 */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
   // 미리 로드할 더미 URL 목록
   const dummyUrls = ["https://www.youtube.com/shorts/3igCTmZ9nrY"];
   // 컴포넌트 마운트 시 더미 데이터 자동 추가
-  React.useEffect(() => {
+  useEffect(() => {
     dummyUrls.forEach(async (url) => {
       if (videos.some((v) => v.url === url)) return;
       try {
         const [metaRes, transRes] = await Promise.all([
-          axios.post("http://localhost:8000/api/metadata", { url }),
-          axios.post("http://localhost:8000/api/transcript", { url }),
+          axios.post("/api/metadata", { url }),
+          axios.post("/api/transcript", { url }),
         ]);
         const { metadata } = metaRes.data;
         const { transcript } = transRes.data;
@@ -63,8 +63,8 @@ function App() {
       return setError("이미 등록된 영상입니다.");
     try {
       const [metaRes, transRes] = await Promise.all([
-        axios.post("http://localhost:8000/api/metadata", { url: urlInput }),
-        axios.post("http://localhost:8000/api/transcript", { url: urlInput }),
+        axios.post("/api/metadata", { url: urlInput }),
+        axios.post("/api/transcript", { url: urlInput }),
       ]);
       const { metadata } = metaRes.data;
       const { transcript } = transRes.data;
