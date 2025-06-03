@@ -197,7 +197,7 @@ export default function VideoApp() {
                 marginBottom: "0.5rem",
                 cursor: "pointer",
                 backgroundColor:
-                  index === selectedIndex ? "#f0f0f0" : "transparent",
+                  index === selectedIndex ? "#d5a6ff" : "transparent",
                 borderRadius: "4px",
               }}
             >
