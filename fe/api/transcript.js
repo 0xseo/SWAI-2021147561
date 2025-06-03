@@ -1,18 +1,50 @@
-// File: api/transcript.js
+// File: fe/api/transcript.js
+
 const TranscriptAPI = require("youtube-transcript-api");
 
-export async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
+// Netlify Functions 핸들러는 (event, context) 인자를 받으며,
+// 반드시 { statusCode, body } 객체를 반환해야 합니다.
+exports.handler = async function (event, context) {
+  // POST가 아니면 405(Method Not Allowed) 반환
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ error: "Method Not Allowed" }),
+    };
   }
 
-  const { url } = req.body;
-  // 동일하게 video ID 추출
+  // request body(JSON) 파싱
+  let body;
+  try {
+    body = JSON.parse(event.body);
+  } catch {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "Invalid JSON", transcript: [] }),
+    };
+  }
+
+  const { url } = body;
+  if (!url) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "URL is required", transcript: [] }),
+    };
+  }
+
+  // URL에서 YouTube 비디오 ID를 추출하는 함수
   const extractVideoId = (u) => {
     try {
       const parsed = new URL(u);
-      if (parsed.searchParams.get("v")) return parsed.searchParams.get("v");
-      if (parsed.hostname === "youtu.be") return parsed.pathname.slice(1);
+      // query string ?v=xxxx
+      if (parsed.searchParams.get("v")) {
+        return parsed.searchParams.get("v");
+      }
+      // youtu.be/xxxx
+      if (parsed.hostname === "youtu.be") {
+        return parsed.pathname.slice(1);
+      }
+      // /shorts/xxxx
       const match = parsed.pathname.match(/\/shorts\/(.+)/);
       return match ? match[1] : null;
     } catch {
@@ -20,19 +52,27 @@ export async function handler(req, res) {
     }
   };
 
-  const id = extractVideoId(url);
-  if (!id) {
-    return res
-      .status(400)
-      .json({ error: "Invalid YouTube URL", transcript: [] });
+  const videoId = extractVideoId(url);
+  if (!videoId) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "Invalid YouTube URL", transcript: [] }),
+    };
   }
 
   try {
-    const transcript = await TranscriptAPI.getTranscript(id);
-    return res.status(200).json({ transcript });
+    // youtube-transcript-api의 getTranscript 메서드를 호출
+    const transcript = await TranscriptAPI.getTranscript(videoId);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ transcript }),
+    };
   } catch (e) {
     console.error("Transcript error:", e.message);
-    // 캡션이 없거나 쿼터 초과 시 빈 배열 반환
-    return res.status(200).json({ transcript: [] });
+    // 캡션이 없거나 쿼터 초과 등의 이유로 실패 시 빈 배열 반환
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ transcript: [] }),
+    };
   }
-}
+};

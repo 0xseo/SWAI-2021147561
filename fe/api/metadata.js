@@ -1,19 +1,45 @@
-// File: api/metadata.js
+// File: fe/api/metadata.js
+
 const axios = require("axios");
 
-export async function handler(req, res) {
-  // POST 요청 본문에 { url: '...' }이 담겨있다고 가정
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
+exports.handler = async function (event, context) {
+  // POST 요청이 아니면 405 반환
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ error: "Method Not Allowed" }),
+    };
   }
 
-  const { url } = req.body;
-  // URL에서 video ID 추출 (watch, youtu.be, shorts 등)
+  // request body(JSON) 파싱
+  let body;
+  try {
+    body = JSON.parse(event.body);
+  } catch {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "Invalid JSON" }),
+    };
+  }
+
+  const { url } = body;
+  if (!url) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "URL is required" }),
+    };
+  }
+
+  // URL에서 YouTube video ID 추출
   const extractVideoId = (u) => {
     try {
       const parsed = new URL(u);
-      if (parsed.searchParams.get("v")) return parsed.searchParams.get("v");
-      if (parsed.hostname === "youtu.be") return parsed.pathname.slice(1);
+      if (parsed.searchParams.get("v")) {
+        return parsed.searchParams.get("v");
+      }
+      if (parsed.hostname === "youtu.be") {
+        return parsed.pathname.slice(1);
+      }
       const match = parsed.pathname.match(/\/shorts\/(.+)/);
       return match ? match[1] : null;
     } catch {
@@ -21,22 +47,37 @@ export async function handler(req, res) {
     }
   };
 
-  const id = extractVideoId(url);
-  if (!id) {
-    return res.status(400).json({ error: "Invalid YouTube URL" });
+  const videoId = extractVideoId(url);
+  if (!videoId) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "Invalid YouTube URL" }),
+    };
   }
 
   const apiKey = process.env.YOUTUBE_API_KEY;
+  if (!apiKey) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "YOUTUBE_API_KEY is not set" }),
+    };
+  }
+
   const parts = ["snippet", "contentDetails", "statistics"].join(",");
-  const ytUrl = `https://www.googleapis.com/youtube/v3/videos?part=${parts}&id=${id}&key=${apiKey}`;
+  const ytUrl = `https://www.googleapis.com/youtube/v3/videos?part=${parts}&id=${videoId}&key=${apiKey}`;
 
   try {
     const response = await axios.get(ytUrl);
     const item = response.data.items[0];
+
     if (!item) {
-      return res.status(404).json({ error: "Video not found" });
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: "Video not found" }),
+      };
     }
-    const watchUrl = `https://www.youtube.com/watch?v=${id}`;
+
+    const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
     const metadata = {
       video_url: watchUrl,
       title: item.snippet.title,
@@ -48,9 +89,16 @@ export async function handler(req, res) {
       like_count: item.statistics.likeCount,
       comment_count: item.statistics.commentCount,
     };
-    return res.status(200).json({ metadata });
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ metadata }),
+    };
   } catch (e) {
     console.error("Metadata error:", e.message);
-    return res.status(500).json({ error: "메타데이터 추출 실패" });
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "메타데이터 추출 실패" }),
+    };
   }
-}
+};
