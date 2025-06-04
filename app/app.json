@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "app",
+    "slug": "app",
+    "version": "1.0.0",
+    "android": {
+      "package": "com.x0xseo.app"
+    },
+    "ios": {
+      "bundleIdentifier": "com.x0xseo.app"
+    }
+  }
+}
