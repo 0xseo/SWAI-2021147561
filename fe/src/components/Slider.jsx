@@ -43,7 +43,7 @@ export default function Slider() {
     try {
       // GET 요청으로 데이터 전송
       await axios.get(
-        `${addrScript}?action=insert&table=tab_final&data=${encodeURIComponent(
+        `${addrScript}?action=insert&table=advice&data=${encodeURIComponent(
           JSON.stringify(payload)
         )}`
       );
