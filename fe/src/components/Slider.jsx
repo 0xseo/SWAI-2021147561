@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Slider.css"; // 모달/스피너 스타일을 위한 별도 CSS
+import { getUVfromCookie } from "../utils/cookie";
 
 export default function Slider() {
   // 폼 상태 관리
@@ -64,33 +65,6 @@ export default function Slider() {
     setShowModal(false);
   };
 
-  // (원본에서 쓰던) 쿠키 기반 사용자 ID 생성 함수
-  function getCookieValue(name) {
-    const value = "; " + document.cookie;
-    const parts = value.split("; " + name + "=");
-    if (parts.length === 2) {
-      return parts.pop().split(";").shift();
-    }
-  }
-  function setCookieValue(name, value, days) {
-    let expires = "";
-    if (days) {
-      const date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
-  }
-  function getUVfromCookie() {
-    const hash = Math.random().toString(36).substring(2, 8).toUpperCase();
-    const existingHash = getCookieValue("user");
-    if (!existingHash) {
-      setCookieValue("user", hash, 180);
-      return hash;
-    } else {
-      return existingHash;
-    }
-  }
   return (
     <section className="slider_section">
       <div id="customCarousel1" className="carousel slide" data-ride="carousel">
