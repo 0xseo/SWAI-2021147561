@@ -142,14 +142,7 @@ export default function SearchApp() {
       } catch (e) {
         console.error("Error saving to Mobile localStorage:", e);
       }
-      // 선택된 인덱스 재조정
-      if (selectedIndex === idx) {
-        // 현재 보고 있던 영상이 삭제된 경우
-        setSelectedIndex(updated.length > 0 ? 0 : -1);
-      } else if (selectedIndex > idx) {
-        // 선택된 인덱스가 삭제된 인덱스보다 뒤에 있으면 -1 보정
-        setSelectedIndex((prevIdx) => prevIdx - 1);
-      }
+      setSelectedIndex(-1); // 선택된 인덱스 초기화
       return updated;
     });
     addLog("delete");

@@ -43,6 +43,7 @@ export default function ListScreen() {
             (function() {
               try {
                 window.localStorage.setItem("videoList", "${escaped}");
+                window.dispatchEvent(new Event('videoListUpdated'));
               } catch (e) {
                 console.warn("injected script error:", e);
               }

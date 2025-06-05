@@ -126,8 +126,8 @@ export default function AddApp() {
   const addVideo = async () => {
     setError("");
     if (!urlInput) return setError("URL을 입력해주세요.");
-    if (videos.some((v) => v.url === urlInput))
-      return setError("이미 등록된 영상입니다.");
+    // if (videos.some((v) => v.url === urlInput))
+    //   return setError("이미 등록된 영상입니다.");
 
     setIsAdding(true);
     try {
@@ -163,37 +163,38 @@ export default function AddApp() {
         transcript,
         showScript: false,
       };
-
-      // 5) 상태 업데이트: setVideos(prev ⇒ …) 형태로
-      setVideos((prev) => {
-        // 중복은 이미 걸렀지만, 안전하게 다시 검사
-        if (prev.some((v) => v.url === urlInput)) return prev;
-        const updated = [newVideo, ...prev];
-        // 20개 초과 시 맨 끝 삭제
-        if (updated.length > 20) updated.pop();
-        // 로컬스토리지에 저장
-        if (stored || query_store == "y") {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        }
-        console.log(
-          "check postMessage",
-          window,
-          window.ReactNativeWebView,
-          typeof window.ReactNativeWebView.postMessage
-        );
-        try {
-          if (
-            window &&
-            window.ReactNativeWebView &&
-            typeof window.ReactNativeWebView.postMessage === "function"
-          ) {
-            window.ReactNativeWebView.postMessage(JSON.stringify(updated));
+      if (!videos.some((v) => v.url === urlInput)) {
+        setVideos((prev) => {
+          // 중복은 이미 걸렀지만, 안전하게 다시 검사
+          if (prev.some((v) => v.url === urlInput)) return prev;
+          const updated = [newVideo, ...prev];
+          // 20개 초과 시 맨 끝 삭제
+          if (updated.length > 20) updated.pop();
+          // 로컬스토리지에 저장
+          if (stored || query_store == "y") {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
           }
-        } catch (e) {
-          console.error("Error in postMessage:", e);
-        }
-        return updated;
-      });
+          console.log(
+            "check postMessage",
+            window,
+            window.ReactNativeWebView,
+            typeof window.ReactNativeWebView.postMessage
+          );
+          try {
+            if (
+              window &&
+              window.ReactNativeWebView &&
+              typeof window.ReactNativeWebView.postMessage === "function"
+            ) {
+              window.ReactNativeWebView.postMessage(JSON.stringify(updated));
+            }
+          } catch (e) {
+            console.error("Error in postMessage:", e);
+          }
+          return updated;
+        });
+      }
+      // 5) 상태 업데이트: setVideos(prev ⇒ …) 형태로
       setVideo(newVideo);
 
       setSelectedIndex(0);
@@ -210,14 +211,6 @@ export default function AddApp() {
       videos.map((v, i) =>
         i === idx ? { ...v, showScript: !v.showScript } : v
       )
-    );
-  };
-
-  const handleSourceToggle = (source) => {
-    setSelectedSources((prev) =>
-      prev.includes(source)
-        ? prev.filter((s) => s !== source)
-        : [...prev, source]
     );
   };
 
@@ -405,7 +398,12 @@ export default function AddApp() {
             </p>
             <div>
               <button
-                onClick={() => toggleScript(selectedIndex)}
+                onClick={() =>
+                  setVideo((prev) => ({
+                    ...prev,
+                    showScript: !prev.showScript,
+                  }))
+                }
                 disabled={isTooLong} // 5분 초과 시 클릭 불가
                 style={{
                   padding: "0.5rem 1rem",
@@ -422,21 +420,6 @@ export default function AddApp() {
                   : video.showScript
                   ? "스크립트 숨기기"
                   : "스크립트 보기"}
-              </button>
-              <button
-                onClick={() => deleteVideo(selectedIndex)}
-                style={{
-                  marginLeft: "0.5rem",
-                  padding: "0.5rem 0.8rem",
-                  backgroundColor: "#e74c3c",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  fontSize: "0.9rem",
-                }}
-              >
-                <MdDeleteForever />
               </button>
             </div>
 
