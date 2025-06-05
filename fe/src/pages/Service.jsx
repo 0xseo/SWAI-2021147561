@@ -18,6 +18,8 @@ export default function Service() {
 
   // "https://script.google.com/macros/s/AKfycbyLkowyKI9nkJK_cvtUdbiUJSRsols6mz_PSMGgujH-pWTzfDnNtrFfksZF6ZZvfeXANw/exec";
   useEffect(() => {
+    setUtm(parceQuery("utm"));
+    setF(parceQuery("f"));
     sendVisitLog();
   }, []);
   const sendVisitLog = async () => {
@@ -30,16 +32,14 @@ export default function Service() {
     } catch (e) {
       console.log("Error", e);
     }
-    setUtm(parceQuery("utm"));
-    setF(parceQuery("f"));
     var data = JSON.stringify({
       id: getUVfromCookie(),
       landingUrl: window.location.href,
       ip: ip || "",
       time_stamp: getTimeStamp(),
-      utm: parceQuery("utm"),
+      utm: utm,
       device: device,
-      store: parceQuery("utm") == "app" || stored ? "y" : parceQuery("store"),
+      store: utm == "app" || stored ? "y" : parceQuery("store"),
       cnt: "",
     });
     try {

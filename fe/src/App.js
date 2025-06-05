@@ -15,6 +15,10 @@ function App() {
       <Routes>
         <Route
           path="/"
+          onEnter={() => {
+            // 페이지가 로드될 때마다 콘솔에 메시지를 출력
+            console.log("홈페이지에 접속했습니다.");
+          }}
           element={
             <div
               style={{
