@@ -1,9 +1,8 @@
-// src/screens/MetadataScreen.js
 import React from "react";
 import { StyleSheet, View, Platform, StatusBar } from "react-native";
 import { WebView } from "react-native-webview";
 
-export default function MetadataScreen() {
+export default function AddScreen() {
   // 여기에 실제 Videobrain 사이트의 '메타데이터 입력/조회' 페이지 URL을 넣으세요.
   const videobrainMetaUrl =
     "https://videobrain.netlify.app/service?utm=app&f=a";

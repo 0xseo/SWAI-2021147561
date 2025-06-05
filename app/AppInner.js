@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import MetadataScreen from "./src/screens/MetadataScreen";
+import AddScreen from "./src/screens/AddScreen";
 import ListScreen from "./src/screens/ListScreen";
 import {
   Alert,
@@ -96,8 +95,8 @@ export default function AppInner() {
         }}
       >
         <Tab.Screen
-          name="Metadata"
-          component={MetadataScreen}
+          name="Add"
+          component={AddScreen}
           options={{
             tabBarLabel: "영상 추가",
             tabBarIcon: ({ focused }) => (
