@@ -385,6 +385,7 @@ export default function SearchApp() {
                   />
                   <p>
                     <a
+                      onClick={(e) => e.stopPropagation()}
                       href={selected.metadata.video_url}
                       target="_blank"
                       rel="noreferrer"
@@ -396,6 +397,12 @@ export default function SearchApp() {
                         border: "none",
                         borderRadius: 100,
                         marginLeft: 3,
+                      }}
+                      onClick={(e) => {
+                        navigator.clipboard.writeText(
+                          selected.metadata.video_url
+                        );
+                        e.stopPropagation();
                       }}
                     >
                       <LuClipboardList />
@@ -424,7 +431,10 @@ export default function SearchApp() {
                     )}
                   </p>
                   <button
-                    onClick={() => toggleScript(selectedIndex)}
+                    onClick={(e) => {
+                      toggleScript(selectedIndex);
+                      e.stopPropagation();
+                    }}
                     disabled={isTooLong} // 5분 초과 시 클릭 불가
                     style={{
                       padding: "0.5rem 1rem",
@@ -443,7 +453,10 @@ export default function SearchApp() {
                       : "스크립트 보기"}
                   </button>
                   <button
-                    onClick={() => deleteVideo(selectedIndex)}
+                    onClick={(e) => {
+                      deleteVideo(selectedIndex);
+                      e.stopPropagation();
+                    }}
                     style={{
                       marginLeft: "0.5rem",
                       padding: "0.5rem 0.8rem",
