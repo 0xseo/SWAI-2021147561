@@ -175,6 +175,23 @@ export default function AddApp() {
         if (stored || query_store == "y") {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
         }
+        console.log(
+          "check postMessage",
+          window,
+          window.ReactNativeWebView,
+          typeof window.ReactNativeWebView.postMessage
+        );
+        try {
+          if (
+            window &&
+            window.ReactNativeWebView &&
+            typeof window.ReactNativeWebView.postMessage === "function"
+          ) {
+            window.ReactNativeWebView.postMessage(JSON.stringify(updated));
+          }
+        } catch (e) {
+          console.error("Error in postMessage:", e);
+        }
         return updated;
       });
       setVideo(newVideo);
