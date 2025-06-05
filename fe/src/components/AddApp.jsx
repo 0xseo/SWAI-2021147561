@@ -9,7 +9,7 @@ import { parceQuery } from "../utils/query";
 import { getConnectionData } from "../utils/connection";
 import { HiPlus } from "react-icons/hi";
 
-export default function SearchApp() {
+export default function AddApp() {
   const [urlInput, setUrlInput] = useState("");
   const [videos, setVideos] = useState([]);
   const [video, setVideo] = useState(null);

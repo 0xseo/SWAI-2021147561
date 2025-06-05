@@ -56,7 +56,7 @@ export default function Service() {
       <div style={{ backgroundColor: "#6038aa" }}>
         <Header />
       </div>
-      {dv !== "mobile" ? <VideoApp /> : f == "a" ? <AddApp /> : <SearchApp />}
+      {dv == "mobile" ? <VideoApp /> : f == "a" ? <AddApp /> : <SearchApp />}
     </div>
   );
 }
