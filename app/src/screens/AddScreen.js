@@ -1,15 +1,29 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
+import { useRef } from "react";
 import { StyleSheet, View, Platform, StatusBar } from "react-native";
 import { WebView } from "react-native-webview";
 
 export default function AddScreen() {
-  // 여기에 실제 Videobrain 사이트의 '메타데이터 입력/조회' 페이지 URL을 넣으세요.
   const videobrainMetaUrl =
     "https://videobrain.netlify.app/service?utm=app&f=a";
+  const STORAGE_KEY = "videoList";
+  const webviewRef = useRef(null);
+
+  const handleOnMessage = async (event) => {
+    try {
+      const jsonString = event.nativeEvent.data;
+      await AsyncStorage.setItem(STORAGE_KEY, jsonString);
+      console.log("WebView onMessage 저장 성공:", jsonString);
+    } catch (error) {
+      console.error("Error in WebView onMessage 저장 실패:", error);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <WebView
+        ref={webviewRef}
         source={{ uri: videobrainMetaUrl }}
         startInLoadingState={true}
         style={styles.webview}
@@ -18,6 +32,7 @@ export default function AddScreen() {
           const { nativeEvent } = syntheticEvent;
           console.warn("WebView error (Metadata): ", nativeEvent);
         }}
+        onMessage={handleOnMessage}
       />
     </View>
   );
