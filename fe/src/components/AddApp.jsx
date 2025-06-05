@@ -244,7 +244,6 @@ export default function AddApp() {
         height: "100%",
         fontFamily: "sans-serif",
         flexDirection: "column",
-        backgroundColor: "#fff",
         borderRadius: "4px",
       }}
     >
@@ -335,7 +334,13 @@ export default function AddApp() {
         }}
       >
         {video && (
-          <>
+          <div
+            style={{
+              padding: "1rem",
+              backgroundColor: "#fff",
+              borderRadius: "8px",
+            }}
+          >
             <h2>{video.metadata.title}</h2>
 
             <img
@@ -421,7 +426,7 @@ export default function AddApp() {
                 ))}
               </ul>
             )}
-          </>
+          </div>
         )}
       </div>
       {/* 스크립트 불가 모달 */}

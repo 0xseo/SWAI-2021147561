@@ -11,6 +11,7 @@ import SearchApp from "../components/SearchApp";
 
 export default function Service() {
   const [dv, setDv] = useState("mobile");
+  const [utm, setUtm] = useState();
   const [f, setF] = useState("");
   const addrScript =
     "https://script.google.com/macros/s/AKfycbyLkowyKI9nkJK_cvtUdbiUJSRsols6mz_PSMGgujH-pWTzfDnNtrFfksZF6ZZvfeXANw/exec";
@@ -23,7 +24,7 @@ export default function Service() {
     const STORAGE_KEY = `videos_${deviceId}`;
     const stored = localStorage.getItem(STORAGE_KEY);
     let { ip, device } = await getConnectionData();
-    setDv(device);
+    setUtm(parceQuery("utm"));
     setF(parceQuery("f"));
     var data = JSON.stringify({
       id: getUVfromCookie(),
@@ -56,7 +57,7 @@ export default function Service() {
       <div style={{ backgroundColor: "#6038aa" }}>
         <Header />
       </div>
-      {dv !== "mobile" ? <VideoApp /> : f == "a" ? <AddApp /> : <SearchApp />}
+      {utm !== "app" ? <VideoApp /> : f == "a" ? <AddApp /> : <SearchApp />}
     </div>
   );
 }

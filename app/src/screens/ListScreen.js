@@ -5,7 +5,8 @@ import { WebView } from "react-native-webview";
 
 export default function ListScreen() {
   // 여기에 실제 Videobrain 사이트의 '목록·검색' 페이지 URL을 넣으세요.
-  const videobrainListUrl = "https://videobrain.netlify.app/service?f=s";
+  const videobrainListUrl =
+    "https://videobrain.netlify.app/service?utm=app&f=s";
 
   return (
     <View style={styles.container}>
