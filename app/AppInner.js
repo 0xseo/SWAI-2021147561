@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SettingScreen from "./src/screens/SettingScreen";
-
+import Icon from "react-native-vector-icons/Ionicons";
 const Tab = createBottomTabNavigator();
 
 const { FloatingBubbleModule } = NativeModules;
@@ -91,22 +91,47 @@ export default function AppInner() {
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
+          tabBarActiveTintColor: "#6038aa",
+          tabBarInactiveTintColor: "gray",
         }}
       >
         <Tab.Screen
           name="Metadata"
           component={MetadataScreen}
-          options={{ tabBarLabel: "URL 메타" }}
+          options={{
+            tabBarLabel: "영상 추가",
+            tabBarIcon: ({ focused }) => (
+              <Icon name="add" size={20} color={focused ? "#6038aa" : "gray"} />
+            ), // 아이콘을 사용하지 않으려면 null 반환
+          }}
         />
         <Tab.Screen
           name="List"
           component={ListScreen}
-          options={{ tabBarLabel: "목록·검색" }}
+          options={{
+            tabBarLabel: "목록·검색",
+            tabBarIcon: ({ focused }) => (
+              <Icon
+                name="search"
+                size={20}
+                color={focused ? "#6038aa" : "gray"}
+              />
+            ), // 아이콘을 사용하지 않으려면 null 반환
+          }}
         />
         <Tab.Screen
           name="Setting"
           component={SettingScreen}
-          options={{ tabBarLabel: "설정" }}
+          options={{
+            tabBarLabel: "설정",
+            tabBarIcon: ({ focused }) => (
+              <Icon
+                name="settings-outline"
+                size={25}
+                color={focused ? "#6038aa" : "gray"}
+              />
+            ), // 아이콘을 사용하지 않으려면 null 반환
+          }}
         />
       </Tab.Navigator>
     </>
