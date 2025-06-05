@@ -1,5 +1,5 @@
 // File: fe/src/components/VideoApp.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { MdDeleteForever } from "react-icons/md";
 import { LuClipboardList } from "react-icons/lu";
@@ -46,18 +46,39 @@ export default function SearchApp() {
     return `${twoDigits(minutes)}:${twoDigits(seconds)}`;
   };
 
+  const loadFromLocalStorage = useCallback(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+
+    try {
+      const parsed = stored ? JSON.parse(stored) : [];
+      if (Array.isArray(parsed)) {
+        setVideos(parsed);
+      } else {
+        setVideos([]);
+      }
+    } catch {
+      setVideos([]);
+    }
+  }, [STORAGE_KEY]);
   // ----- 3. 컴포넌트 마운트 시: 로컬스토리지에 저장된 영상 불러오기 -----
   useEffect(() => {
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          setVideos(parsed);
-        }
-      } catch {
-        // parsing 에러 시 무시
-      }
-    }
+    // if (stored) {
+    //   try {
+    //     const parsed = JSON.parse(stored);
+    //     if (Array.isArray(parsed)) {
+    //       setVideos(parsed);
+    //     }
+    //   } catch {
+    //     // parsing 에러 시 무시
+    //   }
+    // }
+    loadFromLocalStorage();
+
+    const handler = () => {
+      // 로컬스토리지 변경 감지
+      loadFromLocalStorage();
+    };
+    window.addEventListener("videoListUpdated", handler);
     // 3-1) "더미 URL"을 미리 로드 (원래 있던 동작)
     const dummyUrls = ["https://www.youtube.com/shorts/3igCTmZ9nrY"];
     (async () => {
@@ -92,10 +113,14 @@ export default function SearchApp() {
         }
       }
     })();
+    return () => {
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      window.removeEventListener("videoListUpdated", handler);
+    };
 
     // 3-2) localStorage에 저장된 배열이 있으면 가져와서 상태 세팅
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loadFromLocalStorage]);
 
   const deleteVideo = (idx) => {
     setVideos((prev) => {
@@ -104,6 +129,18 @@ export default function SearchApp() {
       // localStorage에도 저장
       if (stored || query_store == "y") {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      }
+      try {
+        if (
+          window &&
+          window.ReactNativeWebView &&
+          typeof window.ReactNativeWebView.postMessage === "function"
+        ) {
+          // React Native WebView 환경에서 postMessage 사용
+          window.ReactNativeWebView.postMessage(JSON.stringify(updated));
+        }
+      } catch (e) {
+        console.error("Error saving to Mobile localStorage:", e);
       }
       // 선택된 인덱스 재조정
       if (selectedIndex === idx) {
@@ -116,71 +153,6 @@ export default function SearchApp() {
       return updated;
     });
     addLog("delete");
-  };
-
-  // ----- 4. 영상 추가 함수 (버튼 클릭 시) -----
-  const addVideo = async () => {
-    setError("");
-    if (!urlInput) return setError("URL을 입력해주세요.");
-    if (videos.some((v) => v.url === urlInput))
-      return setError("이미 등록된 영상입니다.");
-
-    setIsAdding(true);
-    try {
-      // 2) 메타데이터 먼저 가져오기
-      const metaRes = await axios.post("/.netlify/functions/metadata", {
-        url: urlInput,
-      });
-      const { metadata } = metaRes.data;
-
-      // 3) duration 파싱해서 5분 초과 여부 판단
-      const { hours, minutes, seconds } = parseISODuration(metadata.duration);
-      const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-      const FIVE_MINUTES = 5 * 60;
-
-      let transcript = [];
-
-      if (totalSeconds > FIVE_MINUTES) {
-        // 5분 초과: 스크립트 요청을 건너뛰고 모달 표시
-        setShowTranscriptModal(true);
-      } else {
-        // 5분 이하: 실제로 transcript API 호출
-        const transRes = await axios.post("/.netlify/functions/transcript", {
-          url: urlInput,
-        });
-        transcript = transRes.data.transcript || [];
-      }
-      addLog("append");
-
-      // 4) 새로운 영상 객체 생성
-      const newVideo = {
-        url: urlInput,
-        metadata,
-        transcript,
-        showScript: false,
-      };
-
-      // 5) 상태 업데이트: setVideos(prev ⇒ …) 형태로
-      setVideos((prev) => {
-        // 중복은 이미 걸렀지만, 안전하게 다시 검사
-        if (prev.some((v) => v.url === urlInput)) return prev;
-        const updated = [newVideo, ...prev];
-        // 20개 초과 시 맨 끝 삭제
-        if (updated.length > 20) updated.pop();
-        // 로컬스토리지에 저장
-        if (stored || query_store == "y") {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        }
-        return updated;
-      });
-
-      setSelectedIndex(0);
-      setUrlInput("");
-    } catch {
-      setError("비디오 로드 실패. URL을 확인해주세요.");
-    } finally {
-      setIsAdding(false);
-    }
   };
 
   const toggleScript = (idx) => {
