@@ -37,9 +37,9 @@ export default function Service() {
       landingUrl: window.location.href,
       ip: ip || "",
       time_stamp: getTimeStamp(),
-      utm: utm,
+      utm: parceQuery("utm"),
       device: device,
-      store: utm == "app" || stored ? "y" : parceQuery("store"),
+      store: parceQuery("utm") == "app" || stored ? "y" : parceQuery("store"),
       cnt: "",
     });
     try {
