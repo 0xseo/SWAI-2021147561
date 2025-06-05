@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import VideoApp from "../components/VideoApp";
 import { getUVfromCookie } from "../utils/cookie";
@@ -6,8 +6,12 @@ import { getTimeStamp } from "../utils/time";
 import { parceQuery } from "../utils/query";
 import axios from "axios";
 import { getConnectionData } from "../utils/connection";
+import AddApp from "../components/AddApp";
+import SearchApp from "../components/SearchApp";
 
 export default function Service() {
+  const [dv, setDv] = useState("mobile");
+  const [f, setF] = useState("");
   const addrScript =
     "https://script.google.com/macros/s/AKfycbyLkowyKI9nkJK_cvtUdbiUJSRsols6mz_PSMGgujH-pWTzfDnNtrFfksZF6ZZvfeXANw/exec";
   useEffect(() => {
@@ -19,6 +23,8 @@ export default function Service() {
     const STORAGE_KEY = `videos_${deviceId}`;
     const stored = localStorage.getItem(STORAGE_KEY);
     let { ip, device } = await getConnectionData();
+    setDv(device);
+    setF(parceQuery("f"));
     var data = JSON.stringify({
       id: getUVfromCookie(),
       landingUrl: window.location.href,
@@ -39,11 +45,18 @@ export default function Service() {
     }
   };
   return (
-    <>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: dv == "mobile" ? "#6038aa" : "#fff",
+        minHeight: "100vh",
+      }}
+    >
       <div style={{ backgroundColor: "#6038aa" }}>
         <Header />
       </div>
-      <VideoApp />
-    </>
+      {dv !== "mobile" ? <VideoApp /> : f == "a" ? <AddApp /> : <SearchApp />}
+    </div>
   );
 }
