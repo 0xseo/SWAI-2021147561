@@ -25,7 +25,7 @@ export default function SearchApp() {
 
   // 기기별 저장용 로컬스토리지 키
   const deviceId = getUVfromCookie();
-  const STORAGE_KEY = `videos_${deviceId}`;
+  const STORAGE_KEY = `videoList`;
   const stored = localStorage.getItem(STORAGE_KEY);
   const query_store = parceQuery("store");
 
