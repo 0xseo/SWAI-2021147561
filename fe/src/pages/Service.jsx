@@ -14,7 +14,9 @@ export default function Service() {
   const [utm, setUtm] = useState();
   const [f, setF] = useState("");
   const addrScript =
-    "https://script.google.com/macros/s/AKfycbyLkowyKI9nkJK_cvtUdbiUJSRsols6mz_PSMGgujH-pWTzfDnNtrFfksZF6ZZvfeXANw/exec";
+    "https://script.google.com/macros/s/AKfycbzk38ar_wB1F_nGCc3Oegmi25qsLngxfxa5Y3egwzAmDjq1Od3a8dVIl-e-Clz6AYX4/exec";
+
+  // "https://script.google.com/macros/s/AKfycbyLkowyKI9nkJK_cvtUdbiUJSRsols6mz_PSMGgujH-pWTzfDnNtrFfksZF6ZZvfeXANw/exec";
   useEffect(() => {
     sendVisitLog();
   }, []);
@@ -37,8 +39,8 @@ export default function Service() {
       time_stamp: getTimeStamp(),
       utm: parceQuery("utm"),
       device: device,
-      cnt: "",
       store: parceQuery("utm") == "app" || stored ? "y" : parceQuery("store"),
+      cnt: "",
     });
     try {
       const response = await axios.get(
@@ -47,6 +49,9 @@ export default function Service() {
       console.log(JSON.stringify(response));
     } catch (e) {
       console.log("Error", e.data);
+      console.log(
+        addrScript + "?action=insert&table=visitor_service&data=" + data
+      );
     }
   };
   return (

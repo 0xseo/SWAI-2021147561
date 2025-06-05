@@ -14,7 +14,9 @@ export default function Slider() {
 
   // Google Apps Script 엔드포인트 (원본 코드에서 쓰던 주소를 그대로 사용)
   const addrScript =
-    "https://script.google.com/macros/s/AKfycbyLkowyKI9nkJK_cvtUdbiUJSRsols6mz_PSMGgujH-pWTzfDnNtrFfksZF6ZZvfeXANw/exec";
+    "https://script.google.com/macros/s/AKfycbzk38ar_wB1F_nGCc3Oegmi25qsLngxfxa5Y3egwzAmDjq1Od3a8dVIl-e-Clz6AYX4/exec";
+
+  // "https://script.google.com/macros/s/AKfycbyLkowyKI9nkJK_cvtUdbiUJSRsols6mz_PSMGgujH-pWTzfDnNtrFfksZF6ZZvfeXANw/exec";
 
   // 이메일 형식 검증 함수
   const validateEmail = (email) => {
