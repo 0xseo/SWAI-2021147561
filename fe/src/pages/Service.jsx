@@ -44,7 +44,9 @@ export default function Service() {
     });
     try {
       const response = await axios.get(
-        addrScript + "?action=insert&table=visitor_service&data=" + data
+        addrScript +
+          "?action=insert&table=visitor_service&data=" +
+          encodeURIComponent(data)
       );
       console.log(JSON.stringify(response));
     } catch (e) {
