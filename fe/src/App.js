@@ -37,20 +37,6 @@ function App() {
         />
       </Routes>
     </BrowserRouter>
-
-    //   {/* 비디오 메타데이터 + 목록/검색/상세 영역 */}
-    //   <section style={{ padding: "2rem 0", background: "#ebd4ff" }}>
-    //     <div className="container">
-    //       <div style={{ height: "2rem" }}></div>
-
-    //       <VideoApp />
-    //     </div>
-    //   </section>
-
-    //   <FAQ />
-
-    //   {/* Footer가 필요하면 여기에 추가 */}
-    // </div>
   );
 }
 

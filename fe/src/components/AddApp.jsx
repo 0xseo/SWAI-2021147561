@@ -244,6 +244,8 @@ export default function AddApp() {
         height: "100%",
         fontFamily: "sans-serif",
         flexDirection: "column",
+        backgroundColor: "#fff",
+        borderRadius: "4px",
       }}
     >
       <div

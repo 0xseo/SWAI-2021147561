@@ -326,7 +326,8 @@ export default function SearchApp() {
           style={{
             listStyle: "none",
             padding: 0,
-            backgroundColor: "#fff",
+            backgroundColor:
+              filteredResults.length === 0 ? "transparent" : "#fff",
             borderRadius: "4px",
           }}
         >
@@ -482,7 +483,9 @@ export default function SearchApp() {
               )}
             </li>
           ))}
-          {filteredResults.length === 0 && <p>검색 결과가 없습니다.</p>}
+          {filteredResults.length === 0 && (
+            <p style={{ color: "#fff" }}>검색 결과가 없습니다.</p>
+          )}
         </ul>
       </div>
 
