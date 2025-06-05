@@ -208,6 +208,7 @@ export default function SearchApp() {
       id: getUVfromCookie(),
       action: action,
       cnt: "",
+      utm: parceQuery("utm"),
       store: stored ? "y" : parceQuery("store"),
       time_stamp: getTimeStamp(),
     });
