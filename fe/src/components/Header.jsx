@@ -10,7 +10,7 @@ export default function Header() {
             <img
               src="/images/hero-logo.png"
               alt="Video Brain 로고"
-              style={{ width: 50, height: 50, margin: 10 }}
+              style={{ width: 50, height: 50, marginBo: 10 }}
             />
           </div>
           <a className="navbar-brand" href="/" style={{ flex: 1 }}>
