@@ -23,18 +23,22 @@ export default function Service() {
     const deviceId = getUVfromCookie();
     const STORAGE_KEY = `videos_${deviceId}`;
     const stored = localStorage.getItem(STORAGE_KEY);
-    let { ip, device } = await getConnectionData();
+    try {
+      var { ip, device } = await getConnectionData();
+    } catch (e) {
+      console.log("Error", e);
+    }
     setUtm(parceQuery("utm"));
     setF(parceQuery("f"));
     var data = JSON.stringify({
       id: getUVfromCookie(),
       landingUrl: window.location.href,
-      ip: ip,
+      ip: ip || "",
       time_stamp: getTimeStamp(),
       utm: parceQuery("utm"),
       device: device,
       cnt: "",
-      store: stored ? "y" : parceQuery("store"),
+      store: parceQuery("utm") == "app" || stored ? "y" : parceQuery("store"),
     });
     try {
       const response = await axios.get(

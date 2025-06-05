@@ -101,27 +101,6 @@ export default function AddApp() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const deleteVideo = (idx) => {
-    setVideos((prev) => {
-      // idx 번째를 제외한 새 배열 생성
-      const updated = prev.filter((_, i) => i !== idx);
-      // localStorage에도 저장
-      if (stored || query_store == "y") {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-      }
-      // 선택된 인덱스 재조정
-      if (selectedIndex === idx) {
-        // 현재 보고 있던 영상이 삭제된 경우
-        setSelectedIndex(updated.length > 0 ? 0 : null);
-      } else if (selectedIndex > idx) {
-        // 선택된 인덱스가 삭제된 인덱스보다 뒤에 있으면 -1 보정
-        setSelectedIndex((prevIdx) => prevIdx - 1);
-      }
-      return updated;
-    });
-    addLog("delete");
-  };
-
   // ----- 4. 영상 추가 함수 (버튼 클릭 시) -----
   const addVideo = async () => {
     setError("");
@@ -234,7 +213,8 @@ export default function AddApp() {
       id: getUVfromCookie(),
       action: action,
       cnt: "",
-      store: stored ? "y" : parceQuery("store"),
+      store: "y",
+      utm: parceQuery("utm"),
       time_stamp: getTimeStamp(),
     });
     try {
