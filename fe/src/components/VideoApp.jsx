@@ -258,7 +258,14 @@ export default function VideoApp() {
     }
   };
   return (
-    <div style={{ display: "flex", height: "100%", fontFamily: "sans-serif" }}>
+    <div
+      style={{
+        display: "flex",
+        height: "100%",
+        fontFamily: "sans-serif",
+        backgroundColor: "#fff",
+      }}
+    >
       {/* Left */}
       <div
         style={{
@@ -389,6 +396,10 @@ export default function VideoApp() {
               </a>
               <button
                 style={{ border: "none", borderRadius: 100, marginLeft: 3 }}
+                onClick={(e) => {
+                  navigator.clipboard.writeText(selected.metadata.video_url);
+                  e.stopPropagation();
+                }}
               >
                 <LuClipboardList />
               </button>

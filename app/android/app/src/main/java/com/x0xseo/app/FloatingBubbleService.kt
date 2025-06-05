@@ -61,7 +61,7 @@ class FloatingBubbleService : Service() {
         val notification: Notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("앱 플로팅 버튼 실행 중")
             .setContentText("Floating Bubble이 백그라운드에서 실행 중입니다.")
-            .setSmallIcon(R.mipmap.ic_launcher) // 프로젝트에 맞게 변경
+            .setSmallIcon(R.drawable.ic_logo) // 프로젝트에 맞게 변경
             .setContentIntent(pendingIntent)
             .build()
 

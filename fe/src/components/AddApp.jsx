@@ -358,6 +358,10 @@ export default function AddApp() {
               </a>
               <button
                 style={{ border: "none", borderRadius: 100, marginLeft: 3 }}
+                onClick={(e) => {
+                  navigator.clipboard.writeText(selected.metadata.video_url);
+                  e.stopPropagation();
+                }}
               >
                 <LuClipboardList />
               </button>
