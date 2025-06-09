@@ -251,7 +251,7 @@ export default function SearchApp() {
               onChange={(e) => setSearchTerm(e.target.value)}
               onBlur={() => {
                 if (searchTerm.trim()) {
-                  addLog("search:" + searchTerm);
+                  addLog("search");
                 }
               }}
               placeholder="검색어 입력"
